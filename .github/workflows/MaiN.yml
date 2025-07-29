@@ -1,37 +1,29 @@
-name: Node.js CI
+name: Siddik
 
 on:
   push:
-    branches: [ main ]
+    branches: [ Siddik ]
   pull_request:
-    branches: [ main ]
-
+    branches: [ Siddik ]
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # প্রয়োজনীয় পারমিশন যোগ করুন
-    permissions:
-      contents: read
-      packages: read
-      actions: write
-
     strategy:
       matrix:
-        node-version: [16.x]
-        # Node.js রিলিজ সিডিউল: https://nodejs.org/en/about/releases/
+        node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v3  # v2 এর বদলে নতুন ভার্সন ব্যবহার করুন
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3  # v2 এর বদলে v3 ব্যবহার করুন
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        # cache-এর জন্য explicit path দিলে ভালো কাজ করে
-        cache-dependency-path: 'package-lock.json' 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - run: npm ci # npm install এর বদলে npm ci ব্যবহার করুন (clean install)
+      - name: Install dependencies
+        run: npm install
 
-    - run: npm start
+      - name: Start app
+        run: npm start
