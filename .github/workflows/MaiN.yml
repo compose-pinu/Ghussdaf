@@ -1,10 +1,10 @@
-name: Siddik
+name: siddik
 
 on:
   push:
-    branches: [ Siddik ]
+    branches: [ siddik ]
   pull_request:
-    branches: [ Siddik ]
+    branches: [ siddik ]
 jobs:
   build:
     runs-on: ubuntu-latest
